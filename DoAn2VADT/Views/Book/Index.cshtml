@@ -1,0 +1,207 @@
+﻿@using DoAn2VADT.ViewModels.Book
+@model IEnumerable<ListItemBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="tblCate">
+    <p>
+        <a v-on:click="deleteCategory(item.id)">Lam moi data</a>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="card-header">
+        <div class=" row">
+            <div class=" col-md-6 text-right">
+                <a class="btn btn-primary" v-on:click="addOrUpdatebookData()"<i class="anticon anticon-plus-circle m-r-5"></i><span>Thêm mới</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Tên sách</th>
+                    <th scope="col" class="text-center">Mô tả</th>
+                    <th scope="col" class="text-center">Ảnh</th>
+                    <th scope="col" class="text-center">Số lượng</th>
+                    <th scope="col" class="text-center">Giá</th>
+                    <th scope="col" class="text-center">Giá giảm</th>
+                    <th scope="col" class="text-center">Nhà PH</th>
+                    <th scope="col" class="text-center">Nhà XB</th>
+                    <th scope="col" class="text-center">Tác giả</th>
+                    <th scope="col" class="text-center">Đầu sách</th>
+                    <th scope="col" class="text-center">Thể loại</th>
+                    <th scope="col" class="text-center" style="width:300px;">Thao tác</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in books">
+                    <th class="text-center">{{item.name}}</th>
+                    <th class="text-center">{{item.description}}</th>
+                    <th class="text-center"><img /></th>>
+                    <th class="text-center">{{item.amont}}</th>
+                    <th class="text-center">{{item.price}}</th>
+                    <th class="text-center">{{item.discount}}</th>
+                    <th class="text-center">{{item.distributorName}}</th>
+                    <th class="text-center">{{item.publisherName}}</th>
+                    <th class="text-center">{{item.authorName}}</th>
+                    <th class="text-center">{{item.titleName}}</th>
+                    <th class="text-center">{{item.categoryName}}</th>
+                    <td class="text-center">
+                        <a class="btn btn-secondary btn-tone m-r-5" v-on:click="getDataForUpdate(item.id)">Sửa</a>
+                        <a class="btn btn-success btn-tone m-r-5" v-on:click="deleteCategory(item.id)">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        // cấu hình notification
+        let opt = {
+            minDurations: {
+                "async-block": 300,
+                "async": 300
+            }
+        };
+        let noti = new AWN(opt);
+
+        Vue.createApp({
+            data() {
+                return {
+                    action: '',
+                    mCreate: null,
+                    books: [],
+                    bookData: {
+                        id: 0,
+                        image:"",
+                        name: null,
+                        amount:0,
+                        description: null,
+                        price: 0,
+                        discount: 0,
+                        distributorName: null,
+                        publisherName: null,
+                        authorName: null,
+                        titleName: null,
+                        categoryName: null
+                    }
+                }
+            },
+            methods: {
+                getImgUrl(image) {
+                    return require('/Public/Image/Book/' + image)
+                },
+                clearData() {
+                        this.id= 0,
+                        this.image="",
+                        this.name = "",
+                        this.amount=0,
+                        this.description = "",
+                        this.price= 0,
+                        this.discount= 0,
+                        this.distributorName="",
+                        this.publisherName="",
+                        this.authorName="",
+                        this.titleName="",
+                        this.categoryName= ""
+                },
+                getDataForUpdate(id) {
+                    noti.async(
+                        axios.get("Book/Detail/" + id),
+                        (response) => {
+                            var data = response.data;
+                            this.action = "Cập nhật";
+                            this.bookData = { ...data };
+                            this.mCreate.show();
+                        }
+                    );
+                },
+                showModalForAdd() {
+                    this.action = "Thêm mới";
+                    this.clearData();
+                    this.mCreate.show();
+                },
+                addOrUpdatebookData() {
+                    if (!this.bookData.name) {
+                        noti.warning("Không hợp lệ");
+                        return;
+                    }
+                    let url = "/Book/Create";
+                    if (this.bookData.id != 0) {
+                        url = "/Book/Update/" + this.bookData.id;
+                    }
+
+                    noti.async(
+                        axios.post(url, this.bookData),
+                        (res) => {
+                            if (res.data.success) {
+                                noti.success(this.action + " thành công");
+                                this.mCreate.hide();		// ẩn modal
+                                this.clearData();
+                                // Load lại dữ liệu trang index
+                                this.refreshData();
+                            }
+                        },
+                        (err) => {
+                            let statusCode = err.response.status;
+
+                            if (statusCode == 400) {
+                                var errRes = err.response.data;		// object
+                                for (let prop in errRes) {
+                                    for (let mesg of errRes[prop]) {	// errRes[prop] là array
+                                        noti.alert(mesg);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    );
+                },
+
+                deleteCategory(id) {
+                    noti.confirm(
+                        "Xác nhận xóa?",
+                        () => {
+                            noti.async(
+                                axios.get("/Book/Delete/" + id),
+                                (response) => {
+                                    var data = response.data;
+                                    if (data.success) {
+                                        noti.success("Xóa thành công");
+                                        this.refreshData();
+                                    } else {
+                                        noti.warning(data.mesg);
+                                    }
+                                }
+                            );
+                        }
+                    );
+                },
+
+                refreshData() {
+                    noti.asyncBlock(
+                        axios.get("/Book/GetAll"),
+                        (response) => {
+                            this.books = response.data;
+                        },
+                        (err) => {
+                            console.log(err);
+                        },
+                            "Đang tải..."
+                    );
+                }
+            },
+            mounted() {
+                this.refreshData();
+                this.mCreate = new bootstrap.Modal("#modalCreate");
+            }
+        }).mount("#tblCate");
+    </script>
+}

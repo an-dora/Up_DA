@@ -1,0 +1,142 @@
+﻿<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+
+            <li class="nav-item">
+                <a class="dropdown-toggle" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dashboard"></i>
+                    </span>
+                    <span class="title">Dashboard</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+            </li>
+            @*Nhập và bán sách *@
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="TacGiums" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </span>
+                    <span class="title">Bán sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="TacGiums" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-money-check-dollar-pen"></i>
+                    </span>
+                    <span class="title">Nhập sách</span>
+                </a>
+            </li>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="TacGiums" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <span class="title">Tìm kiếm nâng cao</span>
+                </a>
+            </li>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            @*Danh mục quản lí *@
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="TacGiums" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </span>
+                    <span class="title">Quản lý tác giả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-toggle" asp-action="Index" asp-controller="TheLoais" asp-area="Admin">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-list"></i>
+                    </span>
+                    <span class="title">Quản lý thể loại</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-list-tree"></i>
+                    </span>
+                    <span class="title">Quản lý đầu sách</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-solid fa-address-book"></i>
+                    </span>
+                    <span class="title">Quản lý nhà xuất bản</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="fa-regular fa-book-user"></i>
+                    </span>
+                    <span class="title">Quản lý nhà phát hành</span>
+                </a>
+            </li>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-form"></i>
+                    </span>
+                    <span class="title">Khuyến mãi</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="form-layouts.html">Giảm giá</a>
+                    </li>
+                    <li>
+                        <a href="form-validation.html">Quà tặng</a>
+                    </li>
+                </ul>
+            </li>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-table"></i>
+                    </span>
+                    <span class="title">Quản lý hệ thống</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminAccounts" asp-action="Index">Quản lý tài khoản</a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Quản lý danh mục</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-controller="AdminRoles" asp-area="Admin">Quản lý quyền truy cập</a>
+                    </li>
+                </ul>
+            </li>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin:0">
+            <li class="nav-item">
+                <a class="dropdown-toggle" asp-action="Index" asp-controller="AdminPages" asp-area="Admin">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Theo dõi hàng tồn</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
