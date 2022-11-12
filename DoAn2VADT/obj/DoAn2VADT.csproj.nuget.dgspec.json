@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Github\\DoAn2VADT\\DoAn2VADT\\DoAn2VADT.csproj": {}
+    "D:\\Github\\Up_DA\\DoAn2VADT\\DoAn2VADT.csproj": {}
   },
   "projects": {
-    "D:\\Github\\DoAn2VADT\\DoAn2VADT\\DoAn2VADT.csproj": {
+    "D:\\Github\\Up_DA\\DoAn2VADT\\DoAn2VADT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github\\DoAn2VADT\\DoAn2VADT\\DoAn2VADT.csproj",
+        "projectUniqueName": "D:\\Github\\Up_DA\\DoAn2VADT\\DoAn2VADT.csproj",
         "projectName": "DoAn2VADT",
-        "projectPath": "D:\\Github\\DoAn2VADT\\DoAn2VADT\\DoAn2VADT.csproj",
+        "projectPath": "D:\\Github\\Up_DA\\DoAn2VADT\\DoAn2VADT.csproj",
         "packagesPath": "C:\\Users\\AN\\.nuget\\packages\\",
-        "outputPath": "D:\\Github\\DoAn2VADT\\DoAn2VADT\\obj\\",
+        "outputPath": "D:\\Github\\Up_DA\\DoAn2VADT\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

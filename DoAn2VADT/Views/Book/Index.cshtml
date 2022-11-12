@@ -2,21 +2,14 @@
 @model IEnumerable<ListItemBook>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sach-Quanly";
 }
 
 <h1>Index</h1>
-<div class="tblCate">
-    <p>
-        <a v-on:click="deleteCategory(item.id)">Lam moi data</a>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <div class="card-header">
-        <div class=" row">
-            <div class=" col-md-6 text-right">
-                <a class="btn btn-primary" v-on:click="addOrUpdatebookData()"<i class="anticon anticon-plus-circle m-r-5"></i><span>Thêm mới</span></a>
-            </div>
-        </div>
+<div class="content">
+    <div class="justify-content-around text-right">
+        <a class="btn btn-outline-info m-1" v-on:click="refreshData()"><i class="fa-solid fa-arrows-rotate"></i> <span>Làm mới</span></a>
+        <a class="btn btn-primary text-light m-1" v-on:click="showModal()"><i class="fa-solid fa-plus"></i> <span>Thêm mới</span></a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -34,7 +27,6 @@
                     <th scope="col" class="text-center">Đầu sách</th>
                     <th scope="col" class="text-center">Thể loại</th>
                     <th scope="col" class="text-center" style="width:300px;">Thao tác</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -57,17 +49,16 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
+    <partial name="_Create" />
 </div>
 @section Scripts{
 
     <script>
-        // cấu hình notification
         let opt = {
             minDurations: {
-                "async-block": 300,
-                "async": 300
+                "async-block": 200,
+                "async": 200
             }
         };
         let noti = new AWN(opt);
@@ -75,6 +66,7 @@
         Vue.createApp({
             data() {
                 return {
+                    displayName: "Sách",
                     action: '',
                     mCreate: null,
                     books: [],
@@ -123,8 +115,8 @@
                         }
                     );
                 },
-                showModalForAdd() {
-                    this.action = "Thêm mới";
+                showModal() {
+                    this.action = "Thêm";
                     this.clearData();
                     this.mCreate.show();
                 },
@@ -143,9 +135,8 @@
                         (res) => {
                             if (res.data.success) {
                                 noti.success(this.action + " thành công");
-                                this.mCreate.hide();		// ẩn modal
+                                this.mCreate.hide();
                                 this.clearData();
-                                // Load lại dữ liệu trang index
                                 this.refreshData();
                             }
                         },
@@ -153,9 +144,9 @@
                             let statusCode = err.response.status;
 
                             if (statusCode == 400) {
-                                var errRes = err.response.data;		// object
+                                var errRes = err.response.data;
                                 for (let prop in errRes) {
-                                    for (let mesg of errRes[prop]) {	// errRes[prop] là array
+                                    for (let mesg of errRes[prop]) {
                                         noti.alert(mesg);
                                         return;
                                     }
@@ -194,7 +185,7 @@
                         (err) => {
                             console.log(err);
                         },
-                            "Đang tải..."
+                            "Đang tải"
                     );
                 }
             },
@@ -202,6 +193,6 @@
                 this.refreshData();
                 this.mCreate = new bootstrap.Modal("#modalCreate");
             }
-        }).mount("#tblCate");
+        }).mount(".content");
     </script>
 }

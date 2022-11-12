@@ -12,6 +12,7 @@ namespace DoAn2VADT.WebConfigs
             opt.CreateMap<Book, ListItemBook>();
 
         });
+
     }
 
 }
