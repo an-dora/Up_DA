@@ -7,6 +7,7 @@
 
 <h1>Index</h1>
 <div class="content">
+    <partial name="_Create" />
     <div class="justify-content-around text-right">
         <a class="btn btn-outline-info m-1" v-on:click="refreshData()"><i class="fa-solid fa-arrows-rotate"></i> <span>Làm mới</span></a>
         <a class="btn btn-primary text-light m-1" v-on:click="showModal()"><i class="fa-solid fa-plus"></i> <span>Thêm mới</span></a>
@@ -50,7 +51,6 @@
             </tbody>
         </table>
     </div>
-    <partial name="_Create" />
 </div>
 @section Scripts{
 
@@ -91,18 +91,18 @@
                     return require('/Public/Image/Book/' + image)
                 },
                 clearData() {
-                        this.id= 0,
-                        this.image="",
-                        this.name = "",
-                        this.amount=0,
-                        this.description = "",
-                        this.price= 0,
-                        this.discount= 0,
-                        this.distributorName="",
-                        this.publisherName="",
-                        this.authorName="",
-                        this.titleName="",
-                        this.categoryName= ""
+                    this.bookData.id = 0,
+                        this.bookData.image = "",
+                        this.bookData.name = "",
+                        this.bookData.amount = 0,
+                        this.bookData.description = "",
+                        this.bookData.price = 0,
+                        this.bookData.discount = 0,
+                        this.bookData.distributorName = "",
+                        this.bookData.publisherName = "",
+                        this.bookData.authorName = "",
+                        this.bookData.titleName = "",
+                        this.bookData.categoryName= ""
                 },
                 getDataForUpdate(id) {
                     noti.async(
@@ -116,11 +116,11 @@
                     );
                 },
                 showModal() {
-                    this.action = "Thêm";
+                 this.action = "Thêm";
                     this.clearData();
                     this.mCreate.show();
                 },
-                addOrUpdatebookData() {
+                addOrUpdateBookData() {
                     if (!this.bookData.name) {
                         noti.warning("Không hợp lệ");
                         return;
@@ -129,10 +129,10 @@
                     if (this.bookData.id != 0) {
                         url = "/Book/Update/" + this.bookData.id;
                     }
-
                     noti.async(
                         axios.post(url, this.bookData),
                         (res) => {
+                            console.log(this.bookData);
                             if (res.data.success) {
                                 noti.success(this.action + " thành công");
                                 this.mCreate.hide();
@@ -191,7 +191,7 @@
             },
             mounted() {
                 this.refreshData();
-                this.mCreate = new bootstrap.Modal("#modalCreate");
+                this.mCreate = new bootstrap.Modal(document.getElementById("modalCreate"));
             }
         }).mount(".content");
     </script>
